@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import pool from './database';
 import { authenticateToken } from './middleware/auth';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
 const router = Router();
 
