@@ -1,0 +1,8 @@
+services:
+  - name: contacts_app_backend
+    env:
+      - key: NODE_ENV
+        value: production
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /
