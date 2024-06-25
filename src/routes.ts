@@ -3,10 +3,11 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import pool from './database';
 import { authenticateToken } from './middleware/auth';
+import { Request, Response, NextFunction } from 'express';
 
 const router = Router();
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req: Request, res: Response) => {
   	const { username, password } = req.body;
 	try {
 		const hashedPassword = await bcrypt.hash(password, 10);
@@ -22,7 +23,7 @@ router.post('/register', async (req, res) => {
 });
 
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req: Request, res: Response) => {
   const { username, password } = req.body;
   try {
     const [ rows ] = await pool.execute('SELECT * FROM users WHERE username = ?', [ username ]);
@@ -52,7 +53,7 @@ router.post('/login', async (req, res) => {
 });
 
 // Ruta para agregar un contacto (protegida)
-router.post('/contact', authenticateToken, async (req, res) => {
+router.post('/contact', authenticateToken, async (req: Request, res: Response) => {
 	const { name, last_name, phone } = req.body;
 	const userId = (req as any).user.id;
 	try {
@@ -68,7 +69,7 @@ router.post('/contact', authenticateToken, async (req, res) => {
 });
 
 
-router.get('/contacts', authenticateToken, async (req, res) => {
+router.get('/contacts', authenticateToken, async (req: Request, res: Response) => {
 	const userId = (req as any).user.id;
 	try {
 		const [rows] = await pool.execute('SELECT * FROM contacts WHERE user_id = ?', [userId]);
@@ -82,7 +83,7 @@ router.get('/contacts', authenticateToken, async (req, res) => {
 	}
 });
 
-router.put('/contact/:id', authenticateToken, async (req, res) => {
+router.put('/contact/:id', authenticateToken, async (req: Request, res: Response) => {
 	const { id } = req.params;
 	const { name, last_name, phone } = req.body;
 	const userId = (req as any).user.id;
@@ -106,7 +107,7 @@ router.put('/contact/:id', authenticateToken, async (req, res) => {
 	}
 });
 
-router.delete('/contact/:id', authenticateToken, async (req, res) => {
+router.delete('/contact/:id', authenticateToken, async (req: Request, res: Response) => {
   const { id } = req.params;
   const userId = (req as any).user.id;
   try {
