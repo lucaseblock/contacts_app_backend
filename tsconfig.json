@@ -9,28 +9,27 @@
 //   }
 // }
 
-{
-  "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true
-  }
-}
-
 // {
 //   "compilerOptions": {
 //     "target": "ES6",
 //     "module": "commonjs",
-//     "outDir": "./dist",
-//     "rootDir": "./src",
 //     "strict": true,
-//     "esModuleInterop": true,
-//     "skipLibCheck": true,
-//     "forceConsistentCasingInFileNames": true,
-//     "types": ["node"],
-//     "typeRoots": ["./node_modules/@types", "./src/types"]
-//   },
-//   "include": ["src"],
-//   "exclude": ["node_modules"]
+//     "esModuleInterop": true
+//   }
 // }
+
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
