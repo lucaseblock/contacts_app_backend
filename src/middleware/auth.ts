@@ -12,7 +12,6 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 	if (!token) {
 		return res.status(401).json({ error: 'Access denied' });
 	}
-
 	try {
 		const verified = jwt.verify(token, jwtSecret);
 		(req as any).user = verified;
