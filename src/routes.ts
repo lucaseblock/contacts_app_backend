@@ -18,7 +18,10 @@ router.post('/register', async (req: Request, res: Response) => {
 		const [ result ] = await pool.execute('INSERT INTO users (username, password) VALUES (?, ?)', [ username, hashedPassword ]);
 		res.status(201).json({ id: (result as ResultSetHeader).insertId });
 	} catch (err) {
-		if (err instanceof Error) {
+		const mysqlError = err as MysqlError;
+		if (mysqlError.code === 'ER_DUP_ENTRY') {
+			res.status(500).json({ error: 'This username is already taken' });
+		} else if (err instanceof Error) {
 			res.status(500).json({ error: err.message });
 		} else {
 			res.status(500).json({ error: 'Unknown error' });
