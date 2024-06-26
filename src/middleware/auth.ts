@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-// Verificar que JWT_SECRET esté definido
 const jwtSecret = process.env.JWT_SECRET as string;
 if (!jwtSecret) {
 	throw new Error('JWT_SECRET is not defined in environment variables');
@@ -14,7 +13,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 	}
 	try {
 		const verified = jwt.verify(token, jwtSecret);
-		(req as any).user = verified;
+		req.user = verified as { id: number, iat: number, exp: number };
 		next();
 	} catch (err) {
 		res.status(400).json({ error: 'Invalid token' });
